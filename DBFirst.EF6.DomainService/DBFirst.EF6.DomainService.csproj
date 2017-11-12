@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B8A419E5-79EF-4728-B6C0-05B249C77427}</ProjectGuid>
+    <ProjectGuid>{74F38CF9-D0D4-41F7-914D-B650C5CA8089}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DBFirst.Facade</RootNamespace>
-    <AssemblyName>DBFirst.Facade</AssemblyName>
+    <RootNamespace>DBFirst.EF6.DomainService</RootNamespace>
+    <AssemblyName>DBFirst.EF6.DomainService</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,26 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IServiceFacade.cs" />
-    <Compile Include="ServiceFacade.cs" />
+    <Compile Include="BaseDomainService.cs" />
+    <Compile Include="BlogService.cs" />
+    <Compile Include="IBlogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DBFirst.Data\DBFirst.Data.csproj">
-      <Project>{5329F2FE-C480-4EDC-A43E-EF96C86F9817}</Project>
-      <Name>DBFirst.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DBFirst.DomainService\DBFirst.DomainService.csproj">
-      <Project>{74F38CF9-D0D4-41F7-914D-B650C5CA8089}</Project>
-      <Name>DBFirst.DomainService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DBFirst.Entity\DBFirst.Entity.csproj">
+    <ProjectReference Include="..\DBFirst.EF6.Entity\DBFirst.EF6.Entity.csproj">
       <Project>{D5BEBCED-14B2-4179-8C63-39D3D2BF0D4C}</Project>
-      <Name>DBFirst.Entity</Name>
+      <Name>DBFirst.EF6.Entity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DBFirst.Respository\DBFirst.Respository.csproj">
+    <ProjectReference Include="..\DBFirst.EF6.Respository\DBFirst.EF6.Respository.csproj">
       <Project>{13FA98D9-FBA3-4CFF-902C-2BCE20FBA4A4}</Project>
-      <Name>DBFirst.Respository</Name>
+      <Name>DBFirst.EF6.Respository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

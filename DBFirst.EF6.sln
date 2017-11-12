@@ -3,24 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.Data", "DBFirst.Data\DBFirst.Data.csproj", "{5329F2FE-C480-4EDC-A43E-EF96C86F9817}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.EF6.Data", "DBFirst.EF6.Data\DBFirst.EF6.Data.csproj", "{5329F2FE-C480-4EDC-A43E-EF96C86F9817}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.Test", "DBFirst.Test\DBFirst.Test.csproj", "{C174C341-4B59-41B4-B37C-DE218332E464}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.EF6.Test", "DBFirst.EF6.Test\DBFirst.EF6.Test.csproj", "{C174C341-4B59-41B4-B37C-DE218332E464}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7DEF36AE-0E4C-426A-80FC-3C59E75E559A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.Respository", "DBFirst.Respository\DBFirst.Respository.csproj", "{13FA98D9-FBA3-4CFF-902C-2BCE20FBA4A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.EF6.Respository", "DBFirst.EF6.Respository\DBFirst.EF6.Respository.csproj", "{13FA98D9-FBA3-4CFF-902C-2BCE20FBA4A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.Entity", "DBFirst.Entity\DBFirst.Entity.csproj", "{D5BEBCED-14B2-4179-8C63-39D3D2BF0D4C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.EF6.Entity", "DBFirst.EF6.Entity\DBFirst.EF6.Entity.csproj", "{D5BEBCED-14B2-4179-8C63-39D3D2BF0D4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.DomainService", "DBFirst.DomainService\DBFirst.DomainService.csproj", "{74F38CF9-D0D4-41F7-914D-B650C5CA8089}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.EF6.DomainService", "DBFirst.EF6.DomainService\DBFirst.EF6.DomainService.csproj", "{74F38CF9-D0D4-41F7-914D-B650C5CA8089}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.Facade", "DBFirst.Facade\DBFirst.Facade.csproj", "{B8A419E5-79EF-4728-B6C0-05B249C77427}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.EF6.Facade", "DBFirst.EF6.Facade\DBFirst.EF6.Facade.csproj", "{B8A419E5-79EF-4728-B6C0-05B249C77427}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.Model", "DBFirst.Model\DBFirst.Model.csproj", "{D1CD0F71-12B6-4BF9-ABC1-BBCCDF1C24B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBFirst.EF6.Model", "DBFirst.EF6.Model\DBFirst.EF6.Model.csproj", "{D1CD0F71-12B6-4BF9-ABC1-BBCCDF1C24B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

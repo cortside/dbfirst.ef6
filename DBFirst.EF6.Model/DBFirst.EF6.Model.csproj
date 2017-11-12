@@ -7,8 +7,8 @@
     <ProjectGuid>{D1CD0F71-12B6-4BF9-ABC1-BBCCDF1C24B9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DBFirst.Model</RootNamespace>
-    <AssemblyName>DBFirst.Model</AssemblyName>
+    <RootNamespace>DBFirst.EF6.Model</RootNamespace>
+    <AssemblyName>DBFirst.EF6.Model</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
