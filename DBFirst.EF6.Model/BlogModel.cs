@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBFirst.Model {
+namespace DBFirst.EF6.Model {
     public class BlogModel {
     }
 }

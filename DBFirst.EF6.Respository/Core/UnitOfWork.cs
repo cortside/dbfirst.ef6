@@ -1,6 +1,6 @@
 using System;
 
-namespace DBFirst.Respository.Core {
+namespace DBFirst.EF6.Respository.Core {
 
     public static class UnitOfWork {
 

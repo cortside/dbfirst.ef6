@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBFirst.Entity {
+namespace DBFirst.EF6.Entity {
     public abstract class BaseEntity {
 
 	public virtual bool Compare(object obj) {

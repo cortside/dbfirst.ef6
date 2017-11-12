@@ -1,6 +1,6 @@
-using DBFirst.Entity;
+using DBFirst.EF6.Entity;
 
-namespace DBFirst.Respository.Core {
+namespace DBFirst.EF6.Respository.Core {
 
     public interface ICanDelete<T> where T : BaseEntity {
 

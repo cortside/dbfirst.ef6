@@ -1,7 +1,7 @@
-﻿using DBFirst.Entity;
+﻿using DBFirst.EF6.Entity;
 using System.Data.Entity;
 
-namespace DBFirst.Data {
+namespace DBFirst.EF6.Data {
     public partial class DBFirstContext : DbContext {
 	public DBFirstContext() : base("name=DBFirst") {
 	    //disable initializer so that no code migrations happen

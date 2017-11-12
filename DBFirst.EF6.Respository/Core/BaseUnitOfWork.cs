@@ -1,6 +1,6 @@
 using System.Data;
 
-namespace DBFirst.Respository.Core {
+namespace DBFirst.EF6.Respository.Core {
 
     public abstract class BaseUnitOfWork<T> : IUnitOfWork {
 	protected ITransaction transaction;

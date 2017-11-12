@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DBFirst.Entity {
+namespace DBFirst.EF6.Entity {
     [Table("Blog")]
     public partial class Blog : BaseEntity {
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

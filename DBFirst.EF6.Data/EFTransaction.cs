@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.Entity;
 
-namespace DBFirst.Data {
+namespace DBFirst.EF6.Data {
     public class EFTransaction : Respository.Core.ITransaction {
 	private DbContext session;
 

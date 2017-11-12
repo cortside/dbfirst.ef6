@@ -1,4 +1,4 @@
-namespace DBFirst.Respository.Core {
+namespace DBFirst.EF6.Respository.Core {
 
     public interface IUnitOfWorkFactory {
 

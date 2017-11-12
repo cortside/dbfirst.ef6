@@ -1,12 +1,12 @@
-﻿using DBFirst.Data;
-using DBFirst.Data.EFRespository;
-using DBFirst.DomainService;
-using DBFirst.Facade;
+﻿using DBFirst.EF6.Data;
+using DBFirst.EF6.Data.EFRespository;
+using DBFirst.EF6.DomainService;
+using DBFirst.EF6.Facade;
 using System;
 using System.Linq;
 using Xunit;
 
-namespace DBFirst.Test {
+namespace DBFirst.EF6.Test {
     public class UnitTest1 {
 
 	[Fact]

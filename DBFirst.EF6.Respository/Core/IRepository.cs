@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace DBFirst.Respository.Core {
+namespace DBFirst.EF6.Respository.Core {
 
     public interface IRepository<T> {
 	IQueryable<T> Query { get; }

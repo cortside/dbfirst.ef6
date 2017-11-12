@@ -1,11 +1,11 @@
-using DBFirst.Data;
-using DBFirst.Respository.Core;
+using DBFirst.EF6.Data;
+using DBFirst.EF6.Respository.Core;
 using System;
 using System.Data;
 using System.Data.Entity;
-using SCITransaction = DBFirst.Respository.Core.ITransaction;
+using SCITransaction = DBFirst.EF6.Respository.Core.ITransaction;
 
-namespace DBFirst.Data {
+namespace DBFirst.EF6.Data {
 
     public class EFUnitOfWork : BaseUnitOfWork<DbContext>, IUnitOfWork {
 

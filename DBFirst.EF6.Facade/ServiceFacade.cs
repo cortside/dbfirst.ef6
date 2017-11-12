@@ -1,14 +1,14 @@
-﻿using DBFirst.Data.EFRespository;
-using DBFirst.DomainService;
-using DBFirst.Entity;
-using DBFirst.Respository.Core;
+﻿using DBFirst.EF6.Data.EFRespository;
+using DBFirst.EF6.DomainService;
+using DBFirst.EF6.Entity;
+using DBFirst.EF6.Respository.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBFirst.Facade {
+namespace DBFirst.EF6.Facade {
     public class ServiceFacade : IServiceFacade {
 	private IUnitOfWorkFactory uowFactory;
 

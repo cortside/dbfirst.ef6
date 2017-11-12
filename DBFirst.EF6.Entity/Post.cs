@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DBFirst.Entity {
+namespace DBFirst.EF6.Entity {
     [Table("Post")]
     public partial class Post : BaseEntity {
 	public int PostId { get; set; }

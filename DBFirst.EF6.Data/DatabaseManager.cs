@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBFirst.Data {
+namespace DBFirst.EF6.Data {
     public class DatabaseManager {
 	private static DatabaseManager _instance;
 
