@@ -1,0 +1,66 @@
+#*
+
+        sql_view.vm - default sql view template (replaces SqlGenerator.CreateView)
+
+*###
+#if($element.GenerateSqlViewScripts)
+if exists (select * from sysobjects where id = object_id(N'dbo.[$element.View]') and OBJECTPROPERTY(id, N'IsView') = 1)
+drop view dbo.[$element.View]
+GO
+
+SET ANSI_NULLS ON
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW dbo.[$element.View]
+
+AS
+
+SELECT
+#foreach($column in $element.Columns)
+#set($table = $element.Name)
+#if($column.ForeignSqlEntity.Length>0)
+#set($length = $column.Prefix.Length - 1)
+#set($table = $column.Prefix.Substring(0,$length))
+#end
+#if($column.Expression.Length > 0)
+    (${column.Expression}) $sql.Escape($column.Name)#if($velocityCount!=$element.Columns.Count),
+#end	
+#else
+    $sql.Escape($table).#if($column.Prefix.Length==0)$sql.Escape($column.Name)#else$sql.Escape($column.Name.Substring($column.Prefix.Length)) $sql.Escape($column.Name)#end#if($velocityCount!=$element.Columns.Count),
+#end
+#end
+#end
+#if($element.Audit)
+#if($element.Columns.Count>0),#end
+
+    ${sql.Escape($element.Name)}.CreateDate,
+    ${sql.Escape($element.Name)}.CreateUserId,
+    ${sql.Escape($element.Name)}.LastModifiedDate,
+    ${sql.Escape($element.Name)}.LastModifiedUserId
+#end
+#if ($element.Views.Count==1)
+#foreach($constraint in $element.Views.get_Item(0).Constraints)
+#if($constraint.ForeignEntity.Audit),
+    ${sql.Escape($constraint.Prefix.Substring(0,$length))}.CreateDate ${sql.Escape($constraint.Prefix.Substring(0,$length))}_CreateDate,
+    ${sql.Escape($constraint.Prefix.Substring(0,$length))}.CreateUserId ${sql.Escape($constraint.Prefix.Substring(0,$length))}_CreateUserId,
+    ${sql.Escape($constraint.Prefix.Substring(0,$length))}.LastModifiedDate ${sql.Escape($constraint.Prefix.Substring(0,$length))}_LastModifiedDate,
+    ${sql.Escape($constraint.Prefix.Substring(0,$length))}.LastModifiedUserId ${sql.Escape($constraint.Prefix.Substring(0,$length))}_LastModifiedUserId
+#end
+#end
+#end
+
+FROM
+    $sql.Escape($element.Name)
+#if ($element.Views.Count==1)
+#foreach($constraint in $element.Views.get_Item(0).Constraints)
+#set($length = $constraint.Prefix.Length - 1)
+LEFT JOIN $sql.Escape($constraint.ForeignEntity.View) $sql.Escape($constraint.Prefix.Substring(0,$length)) on #foreach($column in $constraint.Columns)#if ($velocityCount >1) and #end${sql.Escape($element.Name)}.$sql.Escape($column.Name) = $sql.Escape($constraint.Prefix.Substring(0,$length)).$sql.Escape($column.ForeignColumn)#end
+
+#end
+#end
+GO
+##
+##grant all on vw$element.Name to [public]
+##GO
+#end

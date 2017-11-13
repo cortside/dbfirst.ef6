@@ -1,0 +1,18 @@
+declare @resourceId as int
+
+#foreach($businessEntity in $element.List)
+  -- Clean out the Resources pertaining to the '${businessEntity.Name}' object properties
+  DELETE FROM LocalizedResource WHERE ResourceId IN (SELECT ResourceId FROM Resource WHERE Context = '${businessEntity.Name}' AND ContextIdentity IS NULL)
+  DELETE FROM Resource WHERE Context = '${businessEntity.Name}' AND ContextIdentity IS NULL
+  GO
+    insert into Resource (Context,Field)values('${businessEntity.Name}','${businessEntity.Name}')
+    insert into localizedResource(ResourceId,Locale,[language],[Content]) values(@@Identity,'US','en','${businessEntity.Name}')  
+  #foreach($field in $businessEntity.ReadableProperties)    
+	-- ${field.Name} Property
+	insert into Resource (Context,Field)values('${businessEntity.Name}','${field.Name}')
+	insert into localizedResource(ResourceId,Locale,[language],[Content]) values(@@Identity,'US','en','${field.Name}')
+
+  #end
+#end
+
+

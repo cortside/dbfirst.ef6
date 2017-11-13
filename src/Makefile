@@ -125,16 +125,16 @@ generate:
 	@$(DTGDIR)/DataTierGenerator.exe -f DataTierGenerator.config.xml
 
 updateProjectFiles:	
-	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Data.csproj -d Data/Model
-	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Data.csproj -d Data/Enum
-	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Domain.csproj -d Domain/Entity
-	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.DomainService.csproj -d DomainService
-	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.DomainService.Implementor.csproj -d DomainService/Implementor
-	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Repository.csproj -d Repository
-	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Repository.NHRepository.csproj -d NHRepository
-	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Test.Domain.csproj -d Test/Domain
-	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Test.DomainService.csproj -d Test/DomainService
-	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Test.NHRepository.csproj -d Test/NHRepository
+	@$(DTGDIR)/UpdateProjectFiles.exe -p DBFirst.EF6.Model\DBFirst.EF6.Model.csproj -d DBFirst.EF6.Model
+#	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Data.csproj -d Data/Enum
+	@$(DTGDIR)/UpdateProjectFiles.exe -p DBFirst.EF6.Entity\DBFirst.EF6.Entity.csproj -d DBFirst.EF6.Entity
+#	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.DomainService.csproj -d DomainService
+#	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.DomainService.Implementor.csproj -d DomainService/Implementor
+#	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Repository.csproj -d Repository
+#	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Repository.NHRepository.csproj -d NHRepository
+#	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Test.Domain.csproj -d Test/Domain
+#	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Test.DomainService.csproj -d Test/DomainService
+#	@$(DTGDIR)/UpdateProjectFiles.exe -p Spring2.DCMS.Test.NHRepository.csproj -d Test/NHRepository
 
 .PHONY: unitTestsCoverage
 unitTestsCoverage: 

@@ -1,0 +1,10 @@
+#if($element.Attributes.aggregateRoot.Length >0 && $element.Attributes.aggregateRoot=="True")
+using System;
+using System.Collections.Generic;
+using ${options.RootNameSpace}.Domain.Entity;
+
+namespace ${options.RootNameSpace}.DomainService {
+    public interface I${element.Name}Service {
+    }
+}
+#end

@@ -1,0 +1,74 @@
+#*
+
+        interface.vm - default data object templates (replaces DataObjectGenerator class)
+
+*###
+#set ($namespaces = "#nameSpaces($options $element true)")
+#set ($namespaces = $namespaces.Replace("using ${options.RootNameSpace}.BusinessLogic;", ""))
+$namespaces
+#if ($namespaces.IndexOf("${options.RootNameSpace}.Types") < 0)
+using ${options.RootNameSpace}.Types;
+
+#end
+using Spring2.Core.BusinessEntity;
+
+#set ($directory = $task.Directory)
+#if($directory.StartsWith('.\'))
+#set ($directory = $directory.Substring(2))
+#end
+#set ($namespace = "$options.RootNameSpace$directory.Replace('\','.')")
+namespace $namespace {
+
+    public class ${element.Name}Fields {
+	private ${element.Name}Fields() {}
+	public static readonly String ENTITY_NAME = "${element.Name}";
+	
+#foreach($field in $element.Fields)
+#if ($field.Column.SqlType.DbType.Length > 0)
+#if ($field.Column.SqlType.SqlDbType.Equals("VarChar(max)"))
+	public static readonly ColumnMetaData $field.Name.ToUpper().Replace(".","_") = new ColumnMetaData("$field.Name", "$field.GetSqlAlias()", DbType.$field.Column.SqlType.DbType, SqlDbType.VarChar, 0, 0, 0);
+#else
+	public static readonly ColumnMetaData $field.Name.ToUpper().Replace(".","_") = new ColumnMetaData("$field.Name", "$field.GetSqlAlias()", DbType.$field.Column.SqlType.DbType, SqlDbType.$field.Column.SqlType.SqlDbType, $field.Column.SqlType.Length, $field.Column.SqlType.Precision, $field.Column.SqlType.Scale);
+#end
+#else
+	public static readonly ColumnMetaData $field.Name.ToUpper().Replace(".","_") = new ColumnMetaData("$field.Name", "$field.GetSqlAlias()", DbType.Int32, SqlDbType.Int, 0, 0, 0);
+#end
+#end
+#if(($element.IsDerived && $element.BaseEntity.SqlEntity.Audit) || $element.SqlEntity.Audit)  
+	public static readonly ColumnMetaData CREATEDDATE = new ColumnMetaData("CreatedDate", "CreatedDate", DbType.DateTime, SqlDbType.DateTime, 0, 0, 0);
+	public static readonly ColumnMetaData CREATEDUSERID = new ColumnMetaData("CreatedUserId", "CreatedUserId", DbType.Int32, SqlDbType.Int, 0, 10, 0);
+	public static readonly ColumnMetaData LASTMODIFIEDUSERID = new ColumnMetaData("LastModifiedUserId", "LastModifiedUserId", DbType.Int32, SqlDbType.Int, 0, 10, 0);
+	public static readonly ColumnMetaData LASTMODIFIEDDATE = new ColumnMetaData("LastModifiedDate", "LastModifiedDate", DbType.DateTime, SqlDbType.DateTime, 0, 0, 0);
+#end
+    }
+#if(!$element.JoinTable)
+
+    public interface I$element.Name :#if($element.IsDerived) I$element.BaseEntity.Name#else IBusinessEntity#end {
+#foreach($field in $element.ReadableProperties)
+#if ($field.Description.Length>0)
+
+	/// <summary>
+	/// $field.Description
+	/// </summary>
+#end
+	$field.Type.Name $field.GetMethodFormat() {
+	    get;
+	}
+#end
+#if($element.SqlEntity.Audit && (!$element.IsDerived || !$element.BaseEntity.SqlEntity.Audit)) 
+	DateTimeType CreatedDate {
+	    get;
+	}
+	IdType CreatedUserId {
+	    get;
+	}
+	IdType LastModifiedUserId {
+	    get;
+	}
+	DateTimeType LastModifiedDate {
+	    get;
+	}
+#end
+    }
+#end
+}

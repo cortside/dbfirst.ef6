@@ -1,0 +1,36 @@
+<!-- Entity definitions -->
+<entities>
+  <entity name="User" abstract="True" sqlentity="User">
+    <description>Base user entity for storing user information.</description>
+    <properties>
+      <property name="UserId" type="Int32" column="*" />
+      <property name="UserStatus" type="String" column="*" />
+      <property name="Username" type="String" column="*" />
+      <property name="Password" type="String" column="*" />
+      <property name="LoginCount" type="Int32" column="*" />
+      <property name="LastLogin" type="Nullable&lt;DateTime&gt;" column="*" />
+      <property name="LastLoginIPAddress" type="String" column="*" />
+      <property name="EffectiveDate" type="DateTime" column="*" />
+      <property name="ExpirationDate" type="Nullable&lt;DateTime&gt;" column="*" />
+      <property name="SecurityToken" type="String" column="*" />
+      <property name="TokenExpiration" type="Nullable&lt;DateTime&gt;" column="*"/>
+      <property name="TermsOfUseAcceptanceDate" type="Nullable&lt;DateTime&gt;" column="*"/>
+    </properties>
+  </entity>
+  <entity name="Blog" sqlentity="Blog" aggregateRoot="True" crudTest="True">
+    <description>Base order entity containing generic order information and logic.</description>
+    <properties>
+      <property name="BlogId" type="Int32" column="*" />
+      <property name="Name" type="String" column="*"/>
+      <property name="Url" type="String" column="*" />
+    </properties>
+  </entity>
+  <entity name="Post" sqlentity="Post" crudTest="True">
+    <properties>
+      <property name="PostId" type="Int32" column="*" />
+      <property name="Blog" type="Blog" />
+      <property name="Title" type="String" column="*" />
+      <property name="Content" type="String" column="*" />
+    </properties>
+  </entity>
+</entities>

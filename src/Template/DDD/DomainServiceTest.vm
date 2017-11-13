@@ -1,0 +1,28 @@
+#if($element.Attributes.aggregateRoot.Length >0 && $element.Attributes.aggregateRoot=="True")
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
+using Rhino.Mocks;
+using ${options.RootNameSpace}.Domain.Entity;
+using ${options.RootNameSpace}.DomainService.Implementor;
+using ${options.RootNameSpace}.IoC;
+using ${options.RootNameSpace}.Repository;
+using ${options.RootNameSpace}.Repository.Core;
+
+namespace ${options.RootNameSpace}.Test.DomainService {
+    [TestFixture]
+    public class ${element.Name}ServiceTest : BaseDomainServiceTest {
+
+	[SetUp]
+	public override void SetUp() {
+	    base.SetUp();
+	}
+
+	[TearDown]
+	public override void TearDown() {
+	    base.TearDown();
+	}
+    }
+}
+#end

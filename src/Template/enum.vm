@@ -1,0 +1,18 @@
+using System;
+
+##
+## formulate the namespace, class name and the collected class name
+##
+#set ($directory = $task.Directory)
+#if($directory.StartsWith('.\'))
+#set ($directory = $directory.Substring(2))
+#end
+#set ($namespace = "$options.RootNameSpace$directory.Replace('\','.')")
+namespace $namespace {
+
+    public enum $element.Name {
+#foreach ($value in $element.Values)
+	$value.Name,
+#end
+    }
+}

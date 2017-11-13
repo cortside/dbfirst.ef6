@@ -1,0 +1,11 @@
+#if($element.Attributes.aggregateRoot.Length >0 && $element.Attributes.aggregateRoot=="True")
+using System;
+using System.Collections.Generic;
+using ${options.RootNameSpace}.Repository.Core;
+using ${options.RootNameSpace}.Domain.Entity;
+
+namespace ${options.RootNameSpace}.Repository {
+    public interface I${element.Name}Repository : IRepository<${element.Name}>, ICanInsert<${element.Name}>, ICanDelete<${element.Name}> {
+    }
+}
+#end

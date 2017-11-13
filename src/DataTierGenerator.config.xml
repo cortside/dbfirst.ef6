@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<?dtg parser="Spring2.DataTierGenerator.Parser.XmlParser,Spring2.DataTierGenerator.Alpha" ?>
+<DataTierGenerator xmlns:xinc="http://www.w3.org/1999/XML/xinclude">
+  <generator class="Spring2.DataTierGenerator.Generator.GeneratorTaskManager,Spring2.DataTierGenerator">
+    <writer name="region" class="Spring2.DataTierGenerator.Generator.Writer.RegionMergeWriter,Spring2.DataTierGenerator">
+      <option name="BeginMarker" value="#region" />
+      <option name="EndMarker" value="#endregion" />
+    </writer>
+    <writer name="c#" class="Spring2.DataTierGenerator.Generator.Writer.CSharpCodeWriter,Spring2.DataTierGenerator">
+      <option name="bracing style" value="block" />
+    </writer>
+    <styler name="c#" class="Spring2.DataTierGenerator.Generator.Styler.CSharpStyler,Spring2.DataTierGenerator">
+      <option name="bracing style" value="block" />
+    </styler>
+    <styler name="uncrustify" class="Spring2.DataTierGenerator.Generator.Styler.CommandLineStyler,Spring2.DataTierGenerator">
+      <option name="FileName" value="..\bin\uncrustify\uncrustify.exe" />
+      <option name="Arguments" value="-c ..\bin\uncrustify\ul.cfg -lCS" />
+    </styler>
+    <tasks>
+      <task name="dto" element="entity" template="Template\DDD\dto.vm"
+	    directory="DBFirst.EF6.Model" filenameformat="{element.Name}Model.cs" writer="c#" styler="uncrustify">
+        <type name="{element.Name}Moel" converttosqltypeformat="{1}.DBValue" convertfromsqltypeformat="{element.Name}Model.GetInstance({2})"
+          newinstanceformat="new {element.Name}Model()" nullinstanceformat="null" convertforcompare="{0}.ToString().CompareTo({1}.ToString())"
+          concretetype="{element.Name}Model" />
+      </task>
+
+      <task name="domain" element="entity" template="Template\DDD\domain.vm"
+	    directory="DBFirst.EF6.Entity" filenameformat="{element.Name}.cs" writer="c#" styler="uncrustify">
+        <type name="{element.Name}" converttosqltypeformat="{1}.DBValue" convertfromsqltypeformat="{element.Name}.GetInstance({2})"
+          newinstanceformat="new {element.Name}()" nullinstanceformat="null" convertforcompare="{0}.ToString().CompareTo({1}.ToString())"
+          concretetype="{element.Name}" />
+      </task>
+      <!--      
+
+      <task name="enum" element="enum" template="Template\enum.vm" directory="Data\Enum" filenameformat="{element.Name}.cs" writer="region" styler="uncrustify">
+        <type name="{element.Name}" concretetype="{element.Name}" converttosqltypeformat="{1}.DBValue"
+          convertfromsqltypeformat="{element.Name}.GetInstance({2})" newinstanceformat="0"
+          nullinstanceformat="0" />
+      </task>
+
+      <task name="IDomainService" element="entity" template="Template\DDD\IDomainService.vm" directory="DomainService" filenameformat="I{element.Name}Service.cs" writer="c#" styler="uncrustify">
+      </task>
+      <task name="DomainService" element="entity" template="Template\DDD\DomainService.vm" directory="DomainService\Implementor" filenameformat="{element.Name}Service.cs" writer="c#" styler="uncrustify">
+      </task>
+
+      <task name="IDomainServiceFactory" element="entities" template="Template\DDD\IDomainServiceFactory.vm" directory="DomainService" filenameformat="IDomainServiceFactory.cs" writer="c#" styler="uncrustify" />
+
+      <task name="IDomainRepository" element="entity" template="Template\DDD\IDomainRepository.vm" directory="Repository" filenameformat="I{element.Name}Repository.cs" writer="c#" styler="uncrustify">
+      </task>
+
+      <task name="NHDomainRepository" element="entity" template="Template\DDD\NHDomainRepository.vm" directory="NHRepository" filenameformat="NH{element.Name}Repository.cs" writer="c#" styler="uncrustify">
+      </task>
+
+      <  !- -
+	    <task name="NH mapping" element="entity" template="Template\DDD\NHMapping.vm" directory="NHRepository\Mappings" filenameformat="{element.Name}.hbm.xml" writer="xml">
+	    </task>
+	    - - >
+      <task name="DomainTest" element="entity" template="Template\DDD\DomainTest.vm" directory="Test\Domain" filenameformat="{element.Name}Test.cs" writer="c#" styler="uncrustify">
+      </task>
+      <task name="DomainServiceTest" element="entity" template="Template\DDD\DomainServiceTest.vm" directory="Test\DomainService" filenameformat="{element.Name}ServiceTest.cs" writer="c#" styler="uncrustify">
+      </task>
+      <task name="NHDomainRepositoryTest" element="entity" template="Template\DDD\NHDomainRepositoryTest.vm" directory="Test\NHRepository" filenameformat="NH{element.Name}RepositoryTest.cs" writer="c#" styler="uncrustify">
+      </task>
+      -->
+
+      <task name="table" element="sqlentity" template="Template\sql_table.vm" directory="sql\table" filenameformat="{element.Name}.table.sql" writer="region" >
+      </task>
+      <task name="view" element="sqlentity" template="Template\sql_view.vm" directory="sql\view" filenameformat="vw{element.Name}.view.sql" writer="region" >
+        <excludes>
+          <exclude name="ResourceText" />
+        </excludes>
+      </task>
+
+      <task name="sql dependencies" element="sqlentities" template="Template\sql-dependencies.vm" directory="sql" filenameformat="dependencies.mk" writer="region" />
+
+
+      <task name="message" element="message" template="Template\PassThroughInterface\Message.vm" directory="Exceptions" filenameformat="{element.Name}.cs" writer="region" styler="uncrustify" >
+      </task>
+
+      <!--  not needed until the NVelocity/Sql message formatter is used
+				<task name="english messages" element="messages" template="Template\sql-message.vm" directory="sql\data" filenameformat="Resource_en-US_Message.data.sql" writer="region" />
+				<task name="english entity property names" element="entities" template="sql-entityNames.vm" directory="sql\data" filenameformat="Resource_en-US_EntityProperties.data.sql" writer="region" />
+				<task name="english enum names" element="enums" template="sql-enumNames.vm" directory="sql\data" filenameformat="Resource_en-US_EnumNames.data.sql" writer="region" />
+				-->
+
+      <task name="insert procs" element="sqlentity" template="Template\sql_insert.vm" directory="sql\proc" filenameformat="sp{element.Name}_Insert.proc.sql" writer="region" />
+
+      <task name="update procs" element="sqlentity" template="Template\sql_update.vm" directory="sql\proc" filenameformat="sp{element.Name}_Update.proc.sql" writer="region" />
+
+      <task name="delete procs" element="sqlentity" template="Template\sql_delete.vm" directory="sql\proc" filenameformat="sp{element.Name}_Delete.proc.sql" writer="region" />
+
+      <task name="update audit trigger" element="sqlentity" template="Template\sql_audit_update.vm" directory="sql\trigger" filenameformat="tr{element.Name}_Update.trigger.sql" writer="region">
+        <includes>
+          <include name="Blog" />
+        </includes>
+      </task>
+    </tasks>
+    <tools>
+      <tool name="sql" class="Spring2.DataTierGenerator.Tool.MSSqlServerTool,Spring2.DataTierGenerator.Tool" />
+    </tools>
+  </generator>
+  <!-- Configuration settings goverening basic generation -->
+  <config>
+    <setting name="RootDirectory" value="." />
+    <setting name="RootNameSpace" value="DBFirst.EF6" />
+    <setting name="DAOBaseClass" value="Spring2.Core.DAO.SqlEntityDAO" />
+  </config>
+  <entities-ref xinc:href="dtg-entities.xml" />
+  <collections></collections>
+  <enums-ref xinc:href="dtg-enums.xml" />
+  <types-ref xinc:href="types.inc.xml" />
+  <sqltypes-ref xinc:href="sqltypes.xml" />
+  <databases-ref xinc:href="dtg-databases.xml" />
+  <messages-ref xinc:href="dtg-messages.xml" />
+</DataTierGenerator>

@@ -1,0 +1,35 @@
+declare @resourceId as int
+
+if not exists (select * from Resource where Context = 'MissingRequiredFieldError' and Field = 'Message' and ContextIdentity is null)
+	begin	    
+	insert into Resource (Context,Field)values('MissingRequiredFieldError','Message')
+	insert into localizedResource(ResourceId,Locale,[language],[Content]) values(@@Identity,'us','en','$fieldName is Required.')
+	end
+    else
+    begin
+	SET @resourceId = (select resourceid from Resource where Context = 'MissingRequiredFieldError' and Field = 'Message' and ContextIdentity is null)
+    	if not exists (select * from LocalizedResource where Locale = 'us' and language = 'en' and resourceid = @resourceId)
+	begin
+		insert into localizedResource(ResourceId,Locale,[language],[Content]) values(@resourceId,'us','en','$fieldName is Required.')
+	end
+    end
+
+
+#foreach($message in $element.List)
+    if not exists (select * from Resource where Context = '${message.Name}' and Field = 'Message' and ContextIdentity is null)
+	begin	    
+	insert into Resource (Context,Field)values('${message.Name}','Message')
+	insert into localizedResource(ResourceId,Locale,[language],[Content]) values(@@Identity,'us','en','${message.Text}')
+	end
+    else
+    begin
+	SET @resourceId = (select resourceid from Resource where Context = '${message.Name}' and Field = 'Message' and ContextIdentity is null)
+    	if not exists (select * from LocalizedResource where Locale = 'us' and language = 'en' and resourceid = @resourceId)
+	begin
+		insert into localizedResource(ResourceId,Locale,[language],[Content]) values(@resourceId,'us','en','${message.Text}')
+	end
+    end
+
+#end
+
+

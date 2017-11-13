@@ -1,31 +1,17 @@
-using Spring2.DataTierGenerator.Attribute;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using System;
 
+using Spring2.DataTierGenerator.Attribute;
 using System.Linq;
 
-namespace DBFirst.EF6.Entity
+
+namespace DBFirst.EF6.Model
 {
-    [Table("Post")]
-    public class Post : BaseEntity
+    public class PostModel
     {
-        public Int32 PostId { get; set; }
-
-        [StringLength(200)]
-        public String Title { get; set; }
-
-        [Column(TypeName = "ntext")]
-        public String Content { get; set; }
-
-        public Int32 BlogId { get; set; }
-
-        public virtual Blog Blog { get; set; }
-
         [Generate()]
         private Int32 postId = 0;
         [Generate()]
-        private Blog blog = new Blog();
+        private BlogModel blog = new BlogModel();
         [Generate()]
         private String title = null;
         [Generate()]
@@ -40,28 +26,56 @@ namespace DBFirst.EF6.Entity
         private Int32 lastModifiedUserId = 0;
 
         [Generate()]
-        public virtual DateTime CreateDate
+        public Int32 PostId
+        {
+            get { return this.postId; }
+            set { this.postId = value; }
+        }
+
+        [Generate()]
+        public BlogModel Blog
+        {
+            get { return this.blog; }
+            set { this.blog = value; }
+        }
+
+        [Generate()]
+        public String Title
+        {
+            get { return this.title; }
+            set { this.title = value; }
+        }
+
+        [Generate()]
+        public String Content
+        {
+            get { return this.content; }
+            set { this.content = value; }
+        }
+
+        [Generate()]
+        public DateTime CreateDate
         {
             get { return this.createDate; }
             set { this.createDate = value; }
         }
 
         [Generate()]
-        public virtual Int32 CreateUserId
+        public Int32 CreateUserId
         {
             get { return this.createUserId; }
             set { this.createUserId = value; }
         }
 
         [Generate()]
-        public virtual DateTime LastModifiedDate
+        public DateTime LastModifiedDate
         {
             get { return this.lastModifiedDate; }
             set { this.lastModifiedDate = value; }
         }
 
         [Generate()]
-        public virtual Int32 LastModifiedUserId
+        public Int32 LastModifiedUserId
         {
             get { return this.lastModifiedUserId; }
             set { this.lastModifiedUserId = value; }

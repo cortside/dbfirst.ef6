@@ -1,0 +1,68 @@
+#if($element.WritableProperties.Count > 0)
+#set ($namespaces = "#nameSpaces($options $element false)")##
+#set ($namespaces = $namespaces.Replace("using ${options.RootNameSpace}.BusinessLogic;", ""))##
+#set ($namespaces = $namespaces.Replace("using Spring2.Core.Types;", ""))##
+#set ($namespaces = $namespaces.Replace("using Spring2.Core.DAO;", ""))##
+$namespaces##
+using Spring2.DataTierGenerator.Attribute;
+using System.Linq;
+
+namespace ${options.RootNameSpace}.Entity {
+
+    public #if($element.IsAbstract)abstract #end class ${element.Name} : #if($element.IsDerived) $element.BaseEntity.Name#else BaseEntity#end#if($element.SqlEntity.Audit), IAuditableEntity#end {
+
+#foreach($field in $element.PrivateFields)
+#if ($field.Writable && $field.Name.IndexOf('.') < 0 && !$field.Derived)
+	[Generate()]
+	$field.AccessModifier $field.DataObjectType.Name $field.GetFieldFormat() = #if($field.Type.Package=="${options.RootNameSpace}.Domain.Entity")null#else$field.DataObjectType.NewInstanceFormat#end;
+#end
+#end
+#if($element.SqlEntity.Audit && (!$element.IsDerived || !$element.BaseEntity.SqlEntity.Audit))
+	[Generate]
+	private DateTime createDate = new DateTime();
+	[Generate]
+	private Int32 createUserId = 0;
+	[Generate]
+	private DateTime lastModifiedDate = new DateTime();
+	[Generate]
+	private Int32 lastModifiedUserId = 0;
+#end
+#foreach($field in $element.PrivateFields)
+#if ($field.Writable && $field.Name.IndexOf('.')<0 && !$field.Derived)
+
+	[Generate()]
+	public virtual $field.DataObjectType.Name $field.GetMethodFormat() {
+	    get { return this.$field.GetFieldFormat(); }
+	    set { this.$field.GetFieldFormat() = value; }
+	}
+#end
+#end
+
+#if($element.SqlEntity.Audit && (!$element.IsDerived || !$element.BaseEntity.SqlEntity.Audit))
+	[Generate()]
+	public virtual DateTime CreateDate {
+	    get { return this.createDate; }
+	    set { this.createDate = value; }
+	}
+
+	[Generate()]
+	public virtual Int32 CreateUserId {
+	    get { return this.createUserId; }
+	    set { this.createUserId = value; }
+	}
+
+	[Generate()]
+	public virtual DateTime LastModifiedDate {
+	    get { return this.lastModifiedDate; }
+	    set { this.lastModifiedDate = value; }
+	}
+
+	[Generate()]
+	public virtual Int32 LastModifiedUserId {
+	    get { return this.lastModifiedUserId; }
+	    set { this.lastModifiedUserId = value; }
+	}
+#end
+    }
+}
+#end

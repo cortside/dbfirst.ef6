@@ -1,0 +1,85 @@
+##
+## Global macro
+##
+#macro(methodArgumentFromEntityWithPrefix $includeIf $fieldList $instanceName)
+#set($separator="")#foreach($field in $fieldList)#if($includeIf)${separator}$instanceName.${field.Name}#if($velocityCount==$fieldsList.Count-1)#set($separator="")#else#set($separator=", ")#end#end#end
+#end
+#if($element.Attributes.aggregateRoot.Length >0 && $element.Attributes.aggregateRoot=="True")
+using System;
+using System.Collections.Generic;
+using NUnit.Framework;
+using Rhino.Mocks;
+using ${options.RootNameSpace}.Domain.Entity;
+using ${options.RootNameSpace}.IoC;
+using ${options.RootNameSpace}.Repository;
+using ${options.RootNameSpace}.Repository.Core;
+using ${options.RootNameSpace}.Repository.NHRepository;
+using ${options.RootNameSpace}.Core.Common;
+using Spring2.DataTierGenerator.Attribute;
+using System.Linq;
+using Castle.MicroKernel.Registration;
+using Castle.Facilities.TypedFactory;
+using Castle.Windsor;
+
+namespace ${options.RootNameSpace}.Test.NHRepository {
+    [TestFixture]
+    #if(!($element.Attributes.crudTest.Length > 0 && $element.Attributes.crudTest=="True"))
+    public class NH${element.Name}RepositoryTest : BaseNHRepositoryTest<${element.Name}> {
+	#else
+    public class NH${element.Name}RepositoryTest : BaseNHRepositoryCRUDTest<${element.Name}> {
+	#end
+
+	[SetUp]
+	public override void SetUp() {
+	    base.SetUp();
+	}
+
+	[TearDown]
+	public override void TearDown() {
+	    base.TearDown();
+	}
+
+	[Generate()]
+	private void CheckPersistance(IUnitOfWorkFactory factory, ${element.Name} expected) {
+	    using (IUnitOfWork uow = factory.BeginUnitOfWork()) {
+		I${element.Name}Repository r = new NH${element.Name}Repository();
+
+		${element.Name} actual = r.Get(#methodArgumentFromEntityWithPrefix(true $element.GetPrimaryKeyFields() "expected"));
+		#foreach($field in $element.Fields)
+		#if($field.Column.Name.Length > 0)
+		#if(${field.Type.Name} == "DateTime" || ${field.Type.Name} == "Nullable<DateTime>")## May Want to add more types here
+		Assert.That(expected.${field.Name}, Is.EqualTo(actual.${field.Name}).Within(1).Seconds);
+		#else
+		Assert.AreEqual(expected.${field.Name} as Object, actual.${field.Name} as Object, "${field.Name}");
+		#end
+		#end
+		#end
+		#if($element.SqlEntity.Audit)
+		Assert.That(expected.CreateDate, Is.EqualTo(actual.CreateDate).Within(1).Seconds);
+		Assert.AreEqual(expected.CreateUserId as Object, actual.CreateUserId as Object, "CreateUserId");
+		Assert.That(expected.LastModifiedDate, Is.EqualTo(actual.LastModifiedDate).Within(1).Seconds);
+		Assert.AreEqual(expected.LastModifiedUserId as Object, actual.LastModifiedUserId as Object, "LastModifiedUserId");
+		#end
+	    }
+	}
+
+	[Generate()]
+	protected override void CheckPersistance(Object expected) {
+	    CheckPersistance(Factory, (${element.Name})expected);
+	}
+
+	#if($element.Attributes.crudTest.Length > 0 && $element.Attributes.crudTest=="True")
+	[Test()]
+	public override void ShouldBeAbleToCRUD() {
+	    var initialData = new Dictionary<String, Object>();
+	    // TODO: add test data
+
+	    var updatedData = new Dictionary<String, Object>();
+	    // TODO: add test data
+
+	    //ShouldBeAbleToCRUD(initialData, updatedData);
+	}
+    #end	
+    }
+}
+#end

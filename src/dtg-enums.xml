@@ -1,0 +1,14 @@
+<enums>
+  <!--
+  <enum name="CustomerStatusEnum">
+    <value name="Active" />
+    <value name="Inactive" />
+  </enum>
+  <enum name="OrderShipmentStatusEnum">
+    <value name="New" />
+    <value name="Processed" code="Processed" />
+    <value name="Voided" code="Voided" />
+    <value name="Shipped" code="Shipped" />
+  </enum>
+-->
+</enums>

@@ -1,0 +1,13 @@
+#if($element.Attributes.aggregateRoot.Length >0 && $element.Attributes.aggregateRoot=="True")
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using ${options.RootNameSpace}.Domain.Entity;
+using ${options.RootNameSpace}.Repository;
+using ${options.RootNameSpace}.DomainService;
+
+namespace ${options.RootNameSpace}.DomainService.Implementor {
+    public class ${element.Name}Service : BaseDomainService, I${element.Name}Service {
+    }
+}
+#end

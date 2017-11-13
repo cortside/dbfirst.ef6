@@ -1,0 +1,12 @@
+using System;
+using System.Collections.Generic;
+
+namespace ${options.RootNameSpace}.DomainService {
+    public interface IDomainServiceFactory {
+#foreach($element in $element.List)
+#if($element.Attributes.aggregateRoot.Length >0 && $element.Attributes.aggregateRoot=="True")
+	I${element.Name}Service Get${element.Name}Service();
+#end
+#end
+    }
+}

@@ -1,0 +1,16 @@
+#if($element.Attributes.aggregateRoot.Length >0 && $element.Attributes.aggregateRoot=="True")
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using NHibernate;
+using ${options.RootNameSpace}.Repository;
+using ${options.RootNameSpace}.Domain.Entity;
+using ${options.RootNameSpace}.Repository.Core;
+using ${options.RootNameSpace}.Repository.NHRepository.Core;
+
+namespace ${options.RootNameSpace}.Repository.NHRepository {
+    public class NH${element.Name}Repository : NHBaseRepository<${element.Name}>, I${element.Name}Repository {
+	public NH${element.Name}Repository() : base() { }
+    }
+}
+#end

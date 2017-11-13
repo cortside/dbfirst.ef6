@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
+using Rhino.Mocks;
+using ${options.RootNameSpace}.Domain.Entity;
+using ${options.RootNameSpace}.IoC;
+
+namespace ${options.RootNameSpace}.Test.Domain {
+    [TestFixture]
+    public class ${element.Name}Test : BaseDomainTest {
+
+	[SetUp]
+	public override void SetUp() {
+	    base.SetUp();
+	}
+
+	[TearDown]
+	public override void TearDown() {
+	    base.TearDown();
+	}
+    }
+}

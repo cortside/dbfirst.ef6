@@ -1,0 +1,11 @@
+<!-- Message definitions -->
+<messages>
+<!--
+    <message name="CannotCommitPeriodInXState" text="A commission period in ''$status'' state cannot be committed.">
+	<properties>
+	    <property name="status" type="CommissionPeriodStatusEnum" />
+	</properties>
+    </message>
+    <message name="CannotExchangeMoreThanShippedError" text="You cannot exchange a greater quantity than what you have recieved." />
+-->    
+</messages>

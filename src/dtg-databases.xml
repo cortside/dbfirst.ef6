@@ -1,0 +1,71 @@
+<databases generateviewscript="True" generatetablescript="True" useview="True">
+  <database name="Database" key="ConnectionString" commandtimeout="60">
+    <sqlentities>
+
+      <sqlentity name="User" audit="True">
+        <columns>
+          <column name="UserId" sqltype="Int" identity="True" required="True" />
+          <column name="UserStatus" sqltype="VarChar" length="10" required="False" />
+          <column name="Username" sqltype="VarChar" length="100" required="True" />
+          <column name="Password" sqltype="VarChar" length="50" required="True" />
+          <column name="LoginCount" sqltype="Int" default="0" />
+          <column name="LastLogin" sqltype="DateTime" />
+          <column name="LastLoginIPAddress" sqltype="VarChar" length="50" />
+          <column name="EffectiveDate" sqltype="DateTime" required="True" />
+          <column name="ExpirationDate" sqltype="DateTime" />
+          <column name="SecurityToken" sqltype="VarChar" length="50" required="False" />
+          <column name="TokenExpiration" sqltype="DateTime" required="False" />
+          <column name="TermsOfUseAcceptanceDate" sqltype="DateTime" required="False" />
+        </columns>
+        <constraints>
+          <constraint name="PK_User" type="PRIMARY KEY" clustered="True">
+            <column name="UserId" />
+          </constraint>
+          <constraint name="UN_User" type="UNIQUE">
+            <column name="Username" />
+          </constraint>
+        </constraints>
+      </sqlentity>
+
+      <sqlentity name="Blog" audit="True">
+        <columns>
+          <column name="BlogId" sqltype="Int" identity="True" required="True" />
+          <column name="Name" sqltype="VarChar" length="50" required="True" />
+          <column name="Url" sqltype="VarChar" length="100" required="True" />
+        </columns>
+        <constraints>
+          <constraint name="PK_Blog" type="PRIMARY KEY" clustered="True">
+            <column name="BlogId" />
+          </constraint>
+          <constraint name="UN_Blog_Name" type="UNIQUE">
+            <column name="Name" />
+          </constraint>
+        </constraints>
+        <indexes>
+          <index name="IxBlog_BlogId">
+            <column name="BlogId" />
+          </index>
+        </indexes>
+      </sqlentity>
+
+
+      <sqlentity name="Post" audit="True">
+        <columns>
+          <column name="PostId" sqltype="Int" identity="True" required="True" />
+          <column name="BlogId" sqltype="Int" required="True" />
+          <column name="Title" sqltype="VarChar" length="200" required="True" />
+          <column name="Content" sqltype="Text" required="True" />
+        </columns>
+        <constraints>
+          <constraint name="PK_Post" type="PRIMARY KEY" clustered="True">
+            <column name="PostId" />
+          </constraint>
+          <constraint name="FK_Post_Blog" type="FOREIGN KEY" foreignentity="Blog">
+            <column name="BlogId" foreigncolumn="BlogId"/>
+          </constraint>
+        </constraints>
+      </sqlentity>
+
+    </sqlentities>
+  </database>
+</databases>

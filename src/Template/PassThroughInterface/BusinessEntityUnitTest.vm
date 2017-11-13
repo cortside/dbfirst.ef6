@@ -1,0 +1,53 @@
+##
+## Global macro
+##
+#macro(methodArgumentFromEntityWithPrefix $includeIf $fieldList $instanceName)
+#set($separator="")#foreach($field in $fieldList)#if($includeIf)${separator}$instanceName.${field.Name}#if($velocityCount==$fieldsList.Count-1)#set($separator="")#else#set($separator=", ")#end#end#end
+#end
+#if(!$element.JoinTable && !$element.IsAbstract && $element.SqlEntity.Name.Length > 0)
+using System;
+using System.Collections;
+
+using NUnit.Framework;
+
+using Spring2.Core.DAO;
+using Spring2.Core.Message;
+using Spring2.Core.Types;
+using Spring2.DataTierGenerator.Attribute;
+
+using ${options.RootNameSpace}.BusinessLogic;
+using ${options.RootNameSpace}.Dao;
+using ${options.RootNameSpace}.DataObject;
+using ${options.RootNameSpace}.Types;
+
+namespace ${options.RootNameSpace}.Test {
+
+    /// <summary>
+    /// Summary description for ${element.Name}Test.
+    /// </summary>
+    [TestFixture]
+    public class ${element.Name}Test : BaseTest {
+
+        [Generate]
+        private void CheckPersistance(${element.Name} expected) {
+	
+	    ${element.Name} actual = ${element.Name}.GetInstance(#methodArgumentFromEntityWithPrefix(true $element.GetPrimaryKeyFields() "expected"));
+#foreach($field in $element.Fields)
+#if($field.Column.Name.Length > 0)
+#if(${field.Type.Name} == "DateTimeType") ## May Want to add more types here
+            Assert.AreEqual(expected.${field.Name}.ToString() as Object, actual.${field.Name}.ToString() as Object, "${field.Name}");
+#else
+            Assert.AreEqual(expected.${field.Name} as Object, actual.${field.Name} as Object, "${field.Name}");
+#end
+#end
+#end
+#if($element.SqlEntity.Audit)
+            Assert.AreEqual(expected.CreatedDate.ToString() as Object, actual.CreatedDate.ToString() as Object, "CreatedDate");
+			Assert.AreEqual(expected.CreatedUserId as Object, actual.CreatedUserId as Object, "CreatedUserId");
+			Assert.AreEqual(expected.LastModifiedDate.ToString() as Object, actual.LastModifiedDate.ToString() as Object, "LastModifiedDate");
+			Assert.AreEqual(expected.LastModifiedUserId as Object, actual.LastModifiedUserId as Object, "LastModifiedUserId");
+#end
+        }
+    }
+}
+#end
