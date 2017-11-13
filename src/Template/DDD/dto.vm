@@ -4,7 +4,7 @@
 #set ($namespaces = $namespaces.Replace("using Spring2.Core.Types;", ""))##
 #set ($namespaces = $namespaces.Replace("using Spring2.Core.DAO;", ""))##
 #set ($namespaces = $namespaces.Replace("using ${options.RootNameSpace}.Entity;", ""))##
-$namespaces##
+##$namespaces##
 using Spring2.DataTierGenerator.Attribute;
 using System.Linq;
 
@@ -15,7 +15,7 @@ namespace ${options.RootNameSpace}.Model {
 #foreach($field in $element.PrivateFields)
 #if ($field.Writable && $field.Name.IndexOf('.')<0)
 	[Generate()]
-	$field.AccessModifier $field.DataObjectType.Name#if($field.Type.Package=="${options.RootNameSpace}.Entity")Model#end $field.GetFieldFormat() = #if($field.Type.Package=="${options.RootNameSpace}.Entity")null#else$field.DataObjectType.NewInstanceFormat#end;
+	$field.AccessModifier $field.DataObjectType.Name#if($field.Type.Package=="${options.RootNameSpace}.${options.RootNameSpace}.Entity")Model#end $field.GetFieldFormat() = #if($field.Type.Package=="${options.RootNameSpace}.${options.RootNameSpace}.Entity")null#else$field.DataObjectType.NewInstanceFormat#end;
 #end
 #end
 #if($element.SqlEntity.Audit && (!$element.IsDerived || !$element.BaseEntity.SqlEntity.Audit))
@@ -32,7 +32,7 @@ namespace ${options.RootNameSpace}.Model {
 #if ($field.Writable && $field.Name.IndexOf('.')<0)
 
 	[Generate()]
-	public $field.DataObjectType.Name#if($field.Type.Package=="${options.RootNameSpace}.Entity")Model#end $field.GetMethodFormat() {
+	public $field.DataObjectType.Name#if($field.Type.Package=="${options.RootNameSpace}.${options.RootNameSpace}.Entity")Model#end $field.GetMethodFormat() {
 	    get { return this.$field.GetFieldFormat(); }
 	    set { this.$field.GetFieldFormat() = value; }
 	}

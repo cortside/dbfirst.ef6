@@ -3,7 +3,11 @@
 #set ($namespaces = $namespaces.Replace("using ${options.RootNameSpace}.BusinessLogic;", ""))##
 #set ($namespaces = $namespaces.Replace("using Spring2.Core.Types;", ""))##
 #set ($namespaces = $namespaces.Replace("using Spring2.Core.DAO;", ""))##
-$namespaces##
+#set ($namespaces = $namespaces.Replace("using Spring2.Core.DAO;", ""))##
+##$namespaces##
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using Spring2.DataTierGenerator.Attribute;
 using System.Linq;
 
